@@ -74,8 +74,11 @@ def load_all_image_names(path = '/home/subrtade/analogies/dataset/data/', suffix
 
 
 def file_id2im_path(file_id, data_path = '/home/subrtade/analogies/dataset/data', absolute=False):
-    image_names = load_all_image_names(path=data_path)
-    image_name = filter(image_names, f'{file_id}.*')[0]
+    if not file_id.endswith(('png', 'jpg', 'jpeg', 'JPG', 'JPEG')):    
+        image_names = load_all_image_names(path=data_path)
+        image_name = filter(image_names, f'{file_id}.*')[0]
+    else:
+        image_name = file_id
     if absolute:
         return os.path.join(data_path, image_name)
     return image_name

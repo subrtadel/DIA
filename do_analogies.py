@@ -43,9 +43,9 @@ with open(args['triplet_file'], 'r') as f:
 clean_file_triplets = []
 for line in file_lines:
     clean_line = line.replace('\n','').split(' ')
-    pathA = os.path.join(args['data_path'],clean_line[0])
-    pathAprime = os.path.join(args['data_path'],clean_line[1])
-    pathB = os.path.join(args['data_path'],clean_line[2])
+    pathA = utils.file_id2im_path(clean_line[0], data_path=args['data_path'],absolute=True)
+    pathAprime = utils.file_id2im_path(clean_line[1], data_path=args['data_path'],absolute=True)
+    pathB = utils.file_id2im_path(clean_line[2], data_path=args['data_path'],absolute=True)
     clean_file_triplets.append((pathA, pathAprime, pathB))
 
 
@@ -69,9 +69,11 @@ export_path = os.path.join(experiment_root, 'analogy_results', args['out_subfold
 
 analogy_creator =  AnalogyCreator(config, ddim_sampler, subfolder, token_subfolder, export_path, data_path= args['data_path'])
 
-add_orig_row = True
-scales = [1.,2., 3., 5.,7., 9., 12.]
-steps = np.linspace(0, 1.5, 20)
+
+analogy_config = OmegaConf.load(f"./config/analogy_params.yaml")
+add_orig_row = analogy_config.add_orig_row 
+scales = analogy_config.guidance_scales
+steps = np.linspace(*analogy_config.analogy_strength)
 
 analogy_func = lambda cA, cAprime, cB, st: cB + st * (cAprime - cA)
 

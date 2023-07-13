@@ -9,7 +9,7 @@ David Futschik,
 </div>
 
 ![DIA_Teaser](https://github.com/subrtadel/DIA/assets/129282989/5f11b34d-9f49-47a2-b90d-60ee36ebc3bc)
-This is the official repository for the Diffusion Image Analogies paper published at SIGGRAPH 2023 Conference Proceedings.
+This is the official repository for the Diffusion Image Analogies paper published at the SIGGRAPH 2023 Conference Proceedings.
 
 ***
 
@@ -39,14 +39,22 @@ This is the official repository for the Diffusion Image Analogies paper publishe
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ***
-## Dataset
 
-Raw input images are placed into ./dataset/raw_data/ folder. 
-The process_data.sh script resizes and pads the raw images and saves into the ./dataset/data/ folder.
-
-***
 
 ## Usage
+
+1. Upload images into `./dataset/raw_data/` folder.
+
+2. Run `process_new_data.py`. The images are assigned `file_id`s in a `%05d` format.
+
+3. Define the triplets in a `.csv` file. Refer to the images by their `file_id`. 
+    Example file is `triplets.csv`. Either with of without filename suffixes is fine.
+
+4. Run the `precompute_noises_and_conditionings.py` script. This may take a while.
+5. Check the `./config/analogy_params.yaml`.
+6. Run the `do_analogies.py` script.
+
+
 
 ***
 

@@ -1,0 +1,6 @@
+add_orig_row: True
+guidance_scales: [1., 2., 3., 5., 7., 9., 12.]
+analogy_strength: 
+      -0 # start 
+      -1.5 # end
+      -20 # number_of_samples
