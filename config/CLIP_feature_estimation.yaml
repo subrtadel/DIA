@@ -9,7 +9,7 @@ optimization:
   batch_size:  8
   uncond_guidance_scale: 1.
 
-path2save_prefix: '/home/subrtade/analogies/results/experiments/inversion/'
+path2save_prefix: './results/experiments/inversion/'
 shape: [4,64,64]
 f: 8
 device: 'cuda:0'
