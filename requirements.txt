@@ -1,5 +1,6 @@
 albumentations==0.4.3
 diffusers
+clip
 pudb==2019.2
 invisible-watermark
 imageio==2.9.0

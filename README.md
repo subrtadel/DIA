@@ -18,15 +18,18 @@ This is the official repository for the Diffusion Image Analogies paper publishe
 1. Clone the repo
    ```sh
    git clone --recurse-submodules https://github.com/subrtadel/DIA.git
+   cd ./DIA
    ```
 2. Create environment 
     ```
+    conda create -n dia_env
+    conda activate dia_env
     conda install python=3.8.5 pip=20.3 cudatoolkit=11.3 pytorch=1.11.0 torchvision=0.12.0 numpy=1.19.2 -c pytorch -c conda-forge -c defaults
     ```
 3. Install packages
    ```sh
    pip install -r requirements.txt
-   cd ./DIA/stable-diffusion/
+   cd ./stable-diffusion/
    pip install -e git+https://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers
    pip install -e .
    ```
@@ -49,7 +52,7 @@ This is the official repository for the Diffusion Image Analogies paper publishe
 2. Run `process_new_data.py`. The images are assigned `file_id`s in a `%05d` format.
 </br>
 3. Define the triplets in a `.csv` file. Refer to the images by their `file_id`. 
-    Example file is `triplets.csv`. First column specifies `A` inputs, second `A'` and the third `B` inputs. Either with of without filename suffixes is fine.
+    Example file is `triplets.csv`. First column specifies the `A` input, second the `A'` and the third `B` input. Either with of without filename suffixes is fine.
 </br>
 4. Run the `precompute_noises_and_conditionings.py` script. This may take a while.
     ``` python
