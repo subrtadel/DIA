@@ -45,15 +45,37 @@ This is the official repository for the Diffusion Image Analogies paper publishe
 ## Usage
 
 1. Upload images into `./dataset/raw_data/` folder.
-
+</br>
 2. Run `process_new_data.py`. The images are assigned `file_id`s in a `%05d` format.
-
+</br>
 3. Define the triplets in a `.csv` file. Refer to the images by their `file_id`. 
     Example file is `triplets.csv`. First column specifies `A` inputs, second `A'` and the third `B` inputs. Either with of without filename suffixes is fine.
-
+</br>
 4. Run the `precompute_noises_and_conditionings.py` script. This may take a while.
+    ``` python
+    python precompute_noises_and_conditionings.py \
+        --config ./config/parameter_estimation.yaml \
+        --inversion_subfolder noise \
+        --token_subfolder tokens \ 
+        --triplet_file triplets.csv \
+        --data_path ./dataset/data/
+    ```
+
+</br>
+
 5. Check the `./config/analogy_params.yaml`.
-6. Run the `do_analogies.py` script.
+</br>
+
+6. Run the `do_analogies.py` script. 
+    ``` python do_analogies.py
+    python do_analogies.py \
+        --config ./config/parameter_estimation.yaml \
+        --inversion_subfolder noise \
+        --token_subfolder tokens \ 
+        --output_subfolder analogies \
+        --triplet_file triplets.csv \
+        --data_path ./dataset/data/
+    ```
 
 
 
