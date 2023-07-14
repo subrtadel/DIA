@@ -24,7 +24,7 @@ This is the official repository for the Diffusion Image Analogies paper publishe
     ```
     conda create -n dia_env
     conda activate dia_env
-    conda install python=3.8.5 pip=20.3 cudatoolkit=11.3 pytorch=1.11.0 torchvision=0.12.0 numpy=1.19.2 -c pytorch -c conda-forge -c defaults
+    conda install python=3.8.5 pip=20.3 cudatoolkit=11.3 pytorch=1.11.0 torchvision=0.12.0 numpy=1.19.2 -c pytorch -c nvidia -c conda-forge -c defaults
     ```
 3. Install packages
    ```sh
