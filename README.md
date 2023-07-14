@@ -8,7 +8,7 @@ David Futschik,
 <a src ="https://dcgi.fel.cvut.cz/home/sykorad/">Daniel Sýkora</a>,  
 </div>
 
-![DIA_Teaser](https://github.com/subrtadel/DIA/assets/129282989/5f11b34d-9f49-47a2-b90d-60ee36ebc3bc)
+![DIA_Teaser](https://github.com/subrtadel/DIA/assets/129282989/4e5ab11d-851a-4d9a-a6f8-d3769e994e33)
 This is the official repository for the Diffusion Image Analogies paper published at the SIGGRAPH 2023 Conference Proceedings.
 
 ***
