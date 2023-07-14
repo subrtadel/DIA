@@ -22,7 +22,7 @@ parser.add_argument('--inversion_subfolder',  dest='subfolder', type=str, defaul
 parser.add_argument('--token_subfolder',  dest='token_subfolder', type=str, default = 'tokens',
                     help='Token inversion subfolder name')
 
-parser.add_argument('--output_subfolder',  dest='out_subfolder', type=str, default = 'analogies_cond_shift_first_phrase',
+parser.add_argument('--output_subfolder',  dest='out_subfolder', type=str, default = 'analogies',
                     help='Output subfolder name')
 
 parser.add_argument('--triplet_file',  dest='triplet_file', type=str,

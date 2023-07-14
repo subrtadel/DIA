@@ -238,8 +238,10 @@ def load_inversion_result_dict(file_id, subfolder, return_result_dict = False, i
 
 
 def check_inversion_done(path_to_image_or_file_id, subfolder, inversion_root_folder = "./results/experiments/inversion/"):
-    if path_to_image_or_file_id.endswith(('.jpg','.png','.jpeg')):
+    if path_to_image_or_file_id.endswith(('.jpg','.png','.jpeg', 'JPG', 'JPEG')):
         file_id = extract_file_id_from_path(path_to_image_or_file_id)
+    else:
+        file_id = path_to_image_or_file_id
     print(f'Checking: {os.path.join(inversion_root_folder, file_id, subfolder,"results.pkl")}')
     return os.path.exists(os.path.join(inversion_root_folder, file_id, subfolder,'results.pkl'))
 

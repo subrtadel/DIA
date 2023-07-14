@@ -35,6 +35,7 @@ This is the official repository for the Diffusion Image Analogies paper publishe
     mkdir -p ./models/ldm/stable-diffusion-v1/
 
     ```
+5. Install [Image Magick](https://imagemagick.org).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -48,7 +49,7 @@ This is the official repository for the Diffusion Image Analogies paper publishe
 2. Run `process_new_data.py`. The images are assigned `file_id`s in a `%05d` format.
 
 3. Define the triplets in a `.csv` file. Refer to the images by their `file_id`. 
-    Example file is `triplets.csv`. Either with of without filename suffixes is fine.
+    Example file is `triplets.csv`. First column specifies `A` inputs, second `A'` and the third `B` inputs. Either with of without filename suffixes is fine.
 
 4. Run the `precompute_noises_and_conditionings.py` script. This may take a while.
 5. Check the `./config/analogy_params.yaml`.

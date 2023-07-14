@@ -87,8 +87,9 @@ class DDIMInvertor():
 
     def perform_inversion(self, image, cond, init_noise_init = None, loss_weights = {'latents': 1. , 'pixels':1.} ):
         if cond is None:
-            cond_out = utils.load_estimated_cond(utils.extract_file_id_from_path(image), token_subfolder=self.config.token_subfolder)
-            cond = self.__tokens2conditioning(cond_out)
+            with torch.no_grad():
+                cond_out = utils.load_estimated_cond(utils.extract_file_id_from_path(image), token_subfolder=self.config.token_subfolder)
+                cond = self.__tokens2conditioning(cond_out)
         
         target_img = utils.load_pil(image)
         target_img = target_img.resize((self.config.shape[-2] * self.config.f, self.config.shape[-1] * self.config.f))

@@ -54,10 +54,10 @@ with open('tmp_noise_inversion.txt','w') as f:
         f.write(f'{fn}\n')
 
 
-os.system(f'python estimate_CLIP_features.py --config {args["config"]} --subfolder {args["subfolder"]} --input_img tmp_clip_inversion.txt --data_path {args["data_path"]}')
+os.system(f'python estimate_CLIP_features.py --config {args["config"]} --subfolder {args["token_subfolder"]} --input_img tmp_clip_inversion.txt --data_path {args["data_path"]}')
 
 
-# os.system(f'python estimate_input_noise.py --config {args["config"]} --input_img tmp_noise_inversion.txt --token_subfolder {args["token_subfolder"]} --subfolder {args["subfolder"]} --data_path {args["data_path"]}')
+os.system(f'python estimate_input_noise.py --config {args["config"]} --input_img tmp_noise_inversion.txt --token_subfolder {args["token_subfolder"]} --subfolder {args["subfolder"]} --data_path {args["data_path"]}')
 
 
 os.remove('tmp_clip_inversion.txt')
