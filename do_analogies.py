@@ -13,7 +13,7 @@ import numpy as np
 
 
 parser = ArgumentParser()
-parser.add_argument('--config',  dest='config', type=str, default='./config/noise_estimation.yaml',
+parser.add_argument('--config',  dest='config', type=str, default='./config/parameter_estimation.yaml',
                     help='path to config file')
 
 parser.add_argument('--inversion_subfolder',  dest='subfolder', type=str, default = 'noise',
@@ -29,7 +29,7 @@ parser.add_argument('--triplet_file',  dest='triplet_file', type=str,
                     help='file with image paths')
 
 
-parser.add_argument('--data_path',  dest='data_path', type=str, default = '/home/subrtade/analogies/dataset/data/',
+parser.add_argument('--data_path',  dest='data_path', type=str, default = './dataset/data/',
                     help='root path to data')
 
 args = parser.parse_args()

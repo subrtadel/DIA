@@ -3,6 +3,7 @@ from omegaconf import OmegaConf
 import numpy as np
 import pickle as pkl
 import torch
+import fnmatch
 import PIL
 import gc
 import os
@@ -64,19 +65,19 @@ def prepare_default_model(default_seed = 42):
 def extract_file_id_from_path(file_name):
     return os.path.basename(file_name).split('.')[0]
 
-def load_all_image_names(path = '/home/subrtade/analogies/dataset/data/', suffixes = ['jpg', 'jpeg', 'png']):
+def load_all_image_names(path = './dataset/data/', suffixes = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG']):
     all_image_files = os.listdir(path)
     extracted_files = []
     for suf in suffixes:
-        extracted_files += filter(all_image_files , f'*.{suf}')
+        extracted_files += fnmatch.filter(all_image_files , f'*.{suf}')
 
     return extracted_files
 
 
-def file_id2im_path(file_id, data_path = '/home/subrtade/analogies/dataset/data', absolute=False):
+def file_id2im_path(file_id, data_path = './dataset/data', absolute=False):
     if not file_id.endswith(('png', 'jpg', 'jpeg', 'JPG', 'JPEG')):    
         image_names = load_all_image_names(path=data_path)
-        image_name = filter(image_names, f'{file_id}.*')[0]
+        image_name = fnmatch.filter(image_names, f'{file_id}.*')[0]
     else:
         image_name = file_id
     if absolute:
@@ -200,7 +201,7 @@ def pixel_space_loss(model, latent1, real_image, loss_fn):
 #######################################################################
 #  Results manipulation
 
-def load_estimated_cond(file_id, token_subfolder = 'tokens', inversion_path_root = '/home/subrtade/analogies/results/experiments/inversion/' ):
+def load_estimated_cond(file_id, token_subfolder = 'tokens', inversion_path_root = './results/experiments/inversion/' ):
     if not os.path.exists(os.path.join(inversion_path_root, f'{file_id}/{token_subfolder}/results.pkl')):
         return None
     with open(os.path.join(inversion_path_root,f'{file_id}/{token_subfolder}/results.pkl'),'rb') as f:
@@ -209,7 +210,7 @@ def load_estimated_cond(file_id, token_subfolder = 'tokens', inversion_path_root
 
 
 
-def load_inversion_result_dict(file_id, subfolder, return_result_dict = False, inversion_root_folder='/home/subrtade/analogies/results/experiments/inversion/'):
+def load_inversion_result_dict(file_id, subfolder, return_result_dict = False, inversion_root_folder='./results/experiments/inversion/'):
     """Loads the results of inversion for given file_id and experiment.
 
     Args:
@@ -236,7 +237,7 @@ def load_inversion_result_dict(file_id, subfolder, return_result_dict = False, i
 
 
 
-def check_inversion_done(path_to_image_or_file_id, subfolder, inversion_root_folder = "/home/subrtade/analogies/results/experiments/inversion/"):
+def check_inversion_done(path_to_image_or_file_id, subfolder, inversion_root_folder = "./results/experiments/inversion/"):
     if path_to_image_or_file_id.endswith(('.jpg','.png','.jpeg')):
         file_id = extract_file_id_from_path(path_to_image_or_file_id)
     print(f'Checking: {os.path.join(inversion_root_folder, file_id, subfolder,"results.pkl")}')

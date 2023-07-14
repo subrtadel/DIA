@@ -102,20 +102,20 @@ class DDIMInvertor():
             alpha_t = torch.tensor([self.ddim_sampler.ddim_alphas[-1]]).cuda()
             init_noise =  torch.sqrt(alpha_t) * target_latent + torch.sqrt(1. - alpha_t) * torch.randn_like(target_latent).to(target_latent.device)
 
-        uc_scale = self.config.optimization.uncond_guidance_scale
+        uc_scale = self.config.noise_optimization.uncond_guidance_scale
 
         init_noise.requires_grad = True
 
-        lbfgs = torch.optim.LBFGS(params = [init_noise], lr = self.config.optimization.lr)
+        lbfgs = torch.optim.LBFGS(params = [init_noise], lr = self.config.noise_optimization.lr)
         loss_fn = torch.nn.functional.mse_loss
 
-        shape = [self.config.optimization.batch_size, * self.config.shape]
+        shape = [self.config.noise_optimization.batch_size, * self.config.shape]
 
 
         progress = {'loss':[]}
         progress['noise'] = []
 
-        pbar = tqdm(range(self.config.optimization.opt_iters))
+        pbar = tqdm(range(self.config.noise_optimization.opt_iters))
         for i in pbar:
             def closure_():
                 lbfgs.zero_grad()
@@ -138,7 +138,7 @@ class DDIMInvertor():
             if loss_weights['pixels'] != 0:
                 loss += loss_weights['pixels'] * utils.pixel_space_loss(self.ddim_sampler.model, x0_prediction, target_img, loss_fn)
             
-            if i % self.config.optimization.log_every == 0:
+            if i % self.config.noise_optimization.log_every == 0:
                 progress['loss'].append(loss.item())
                 progress['noise'].append(init_noise.detach().cpu())
             
@@ -238,43 +238,43 @@ class DDIMInvertor():
         prompt_repre = text_tokens.detach().clone()
 
         grad_mask = torch.zeros_like(prompt_repre)
-        grad_mask[:self.config.optimization.N_tokens,:] = 1.
+        grad_mask[:self.config.conditioning_optimization.N_tokens,:] = 1.
         grad_mask = grad_mask.to(self.ddim_sampler.model.device)
         fetch_cond_init = lambda x: self.ddim_sampler.model.cond_stage_model.transformer(inputs_embeds = x.unsqueeze(0))['last_hidden_state']
         prompt_repre.requires_grad = True
 
-        uc_scale = self.config.optimization.uncond_guidance_scale
+        uc_scale = self.config.conditioning_optimization.uncond_guidance_scale
 
-        adam = torch.optim.AdamW(params = [prompt_repre], lr = self.config.optimization.lr)
+        adam = torch.optim.AdamW(params = [prompt_repre], lr = self.config.conditioning_optimization.lr)
         loss_fn = torch.nn.functional.mse_loss
 
 
         progress = {'loss':[], 'indices':[]}
         progress['cond'] = []
     
-        # timestep_indices = torch.randint(low=0, high=self.config.n_iters, size=(self.config.optimization.batch_size,1) ).view(-1)
+        # timestep_indices = torch.randint(low=0, high=self.config.n_iters, size=(self.config.conditioning_optimization.batch_size,1) ).view(-1)
         # print(f'Selected timesteps: {timestep_indices}')
 
 
-        pbar = tqdm(range(self.config.optimization.opt_iters))
+        pbar = tqdm(range(self.config.conditioning_optimization.opt_iters))
         for i in pbar:
 
             noise_ = torch.randn_like(target_latent)
 
             # TODO: loss is not comparable...
-            timestep_indices = torch.randint(low=0, high=self.config.ddim_steps, size=(self.config.optimization.batch_size,1) ).view(-1)
+            timestep_indices = torch.randint(low=0, high=self.config.ddim_steps, size=(self.config.conditioning_optimization.batch_size,1) ).view(-1)
 
             noisy_samples = self.add_noise(target_latent, noise_, timestep_indices, ddim_use_original_steps=False)
 
             steps_in = torch.index_select(timesteps, 0, timestep_indices).to(self.config.device)
             cond_init = fetch_cond_init(prompt_repre)
 
-            noise_prediction = self.ddim_sampler.model.apply_model(noisy_samples, steps_in, cond_init.expand(self.config.optimization.batch_size, -1 , -1))
+            noise_prediction = self.ddim_sampler.model.apply_model(noisy_samples, steps_in, cond_init.expand(self.config.conditioning_optimization.batch_size, -1 , -1))
 
             loss = loss_fn(noise_prediction, noise_, reduction = 'none').mean((1,2,3)).mean()
 
             
-            if i % self.config.optimization.log_every == 0:
+            if i % self.config.conditioning_optimization.log_every == 0:
                 progress['indices'].append(timestep_indices)
                 progress['loss'].append(loss.item())
                 progress['cond'].append(prompt_repre.detach().cpu())

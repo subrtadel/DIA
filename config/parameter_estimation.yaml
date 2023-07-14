@@ -1,10 +1,18 @@
 sufficient_loss: 0.0008
 ddim_steps: 10
 ddim_eta: 0.
-optimization:
+noise_optimization:
   opt_iters: 10
   log_every: 1
   lr: 1
+  batch_size:  8
+  uncond_guidance_scale: 1.
+
+conditioning_optimization:
+  opt_iters: 20
+  log_every: 1
+  lr: 0.01
+  N_tokens: 10
   batch_size:  8
   uncond_guidance_scale: 1.
 

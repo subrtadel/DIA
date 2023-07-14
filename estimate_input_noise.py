@@ -10,7 +10,7 @@ import utils
 
 
 parser = ArgumentParser()
-parser.add_argument('--config',  dest='config', type=str, default='./config/noise_estimation.yaml',
+parser.add_argument('--config',  dest='config', type=str, default='./config/parameter_estimation.yaml',
                     help='path to config file')
 
 parser.add_argument('--input_img',  dest='input_img', type=str, default = None,
@@ -23,7 +23,7 @@ parser.add_argument('--token_subfolder',  dest='token_subfolder', type=str, defa
                     help='token subfolder name')
 
 
-parser.add_argument('--data_path',  dest='data_path', type=str, default = '/home/subrtade/analogies/dataset/data/',
+parser.add_argument('--data_path',  dest='data_path', type=str, default = './dataset/data/',
                     help='root path to data')
 
 args = parser.parse_args()
@@ -32,10 +32,10 @@ args = vars(args)
 assert os.path.isfile(args['input_img']), '--input_img is not a file'
 
 if args['input_img'].endswith('.txt'):
-    with open(args['img_img'], 'r') as f:
+    with open(args['input_img'], 'r') as f:
         file_lines = f.readlines()
     clean_file_lines = [os.path.join(args['data_path'],x.replace('\n','')) for x in file_lines]
-elif args['input_img'].endswith(('.png','.jpeg','.jpg')):
+elif args['input_img'].endswith(('.png','.jpeg','.jpg', 'JPG', 'JPEG')):
     clean_file_lines = [args['input_img']]
 
 config = OmegaConf.load(f"{args['config']}")

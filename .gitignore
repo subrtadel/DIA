@@ -1,4 +1,5 @@
 results/
+dataset/data
 
 __pycache__/
 
@@ -8,5 +9,7 @@ __pycache__/
 *.jpg
 *.png
 *.jpeg
+*.JPG
+*.JPEG
 
 *.pdf

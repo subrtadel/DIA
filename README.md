@@ -32,7 +32,7 @@ This is the official repository for the Diffusion Image Analogies paper publishe
    ```
 4. Download the [sd-v1-4.ckpt model](https://huggingface.co/CompVis/stable-diffusion-v-1-4-original) and put it into correct folder
     ```
-    mkdir -p ./DIA/stable-diffusion/models/ldm/stable-diffusion-v1/
+    mkdir -p ./models/ldm/stable-diffusion-v1/
 
     ```
 

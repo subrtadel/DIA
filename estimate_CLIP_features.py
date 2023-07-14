@@ -13,7 +13,7 @@ import utils
 
 
 parser = ArgumentParser()
-parser.add_argument('--config',  dest='config', type=str, default='./config/CLIP_feature_estimation.yaml',
+parser.add_argument('--config',  dest='config', type=str, default='./config/parameter_estimation.yaml',
                     help='path to config file')
 parser.add_argument('--input_img',  dest='input_img', type=str, required = True,
                     help='path to image or text files with image names')
@@ -22,7 +22,7 @@ parser.add_argument('--subfolder',  dest='subfolder', type=str, default = 'token
                     help='subfolder name')
 
 
-parser.add_argument('--data_path',  dest='data_path', type=str, default = '/home/subrtade/analogies/dataset/data/',
+parser.add_argument('--data_path',  dest='data_path', type=str, default = './dataset/data/',
                     help='root path to data')
 
 parser.add_argument('--regenerate_tokens',  dest='regenerate', action='store_true',
@@ -34,7 +34,7 @@ args = vars(args)
 assert os.path.isfile(args['input_img']), '--input_img is not a file'
 
 if args['input_img'].endswith('.txt'):
-    with open(args['img_img'], 'r') as f:
+    with open(args['input_img'], 'r') as f:
         file_lines = f.readlines()
     clean_file_lines = [os.path.join(args['data_path'],x.replace('\n','')) for x in file_lines]
 elif args['input_img'].endswith(('.png','.jpeg','.jpg')):
@@ -76,12 +76,12 @@ for file_path in clean_file_lines:
     if args["regenerate"]:
         c_ = model.cond_stage_model.transformer(inputs_embeds = output['estimated_conditioning'].unsqueeze(0))['last_hidden_state']
         res, _ = invertor.ddim_sampler.sample(config.ddim_steps,
-                    config.optimization.batch_size,
+                    config.conditioning_optimization.batch_size,
                     config.shape,
-                    conditioning=c_.expand(config.optimization.batch_size, -1,-1),
+                    conditioning=c_.expand(config.conditioning_optimization.batch_size, -1,-1),
                     eta=0.,
                     unconditional_guidance_scale=5.,
-                    unconditional_conditioning=invertor.uc.expand(config.optimization.batch_size, -1,-1))
+                    unconditional_conditioning=invertor.uc.expand(config.conditioning_optimization.batch_size, -1,-1))
 
 
 
