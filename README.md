@@ -1,5 +1,5 @@
 # Diffusion Image Analogies
-<div>
+<div align='center'>
 <a src ="https://cmp.felk.cvut.cz/~subrtade/">Adéla Šubrtová</a>,
 <a src ="https://research.adobe.com/person/michal-lukac/">Michal Lukáč</a>,  
 <a src ="https://cmp.felk.cvut.cz/~cechj/">Jan Čech</a>,  
