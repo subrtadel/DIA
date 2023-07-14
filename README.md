@@ -1,11 +1,11 @@
 # Diffusion Image Analogies
 <div align='center'>
-<a src ="https://cmp.felk.cvut.cz/~subrtade/">Adéla Šubrtová</a>,
-<a src ="https://research.adobe.com/person/michal-lukac/">Michal Lukáč</a>,  
-<a src ="https://cmp.felk.cvut.cz/~cechj/">Jan Čech</a>,  
+<a href ="https://cmp.felk.cvut.cz/~subrtade/">Adéla Šubrtová</a>,
+<a href ="https://research.adobe.com/person/michal-lukac/">Michal Lukáč</a>,  
+<a href ="https://cmp.felk.cvut.cz/~cechj/">Jan Čech</a>,  
 David Futschik,  
-<a src ="https://research.adobe.com/person/eli-shechtman/">Eli Shechtman</a>,  
-<a src ="https://dcgi.fel.cvut.cz/home/sykorad/">Daniel Sýkora</a>,  
+<a href ="https://research.adobe.com/person/eli-shechtman/">Eli Shechtman</a>,  
+<a href ="https://dcgi.fel.cvut.cz/home/sykorad/">Daniel Sýkora</a>,  
 </div>
 
 ![DIA_Teaser](https://github.com/subrtadel/DIA/assets/129282989/4e5ab11d-851a-4d9a-a6f8-d3769e994e33)
