@@ -13,7 +13,6 @@ einops==0.3.0
 torch-fidelity==0.3.0
 transformers==4.19.2
 torchmetrics==0.6.0
-torchvision==0.13.1
 kornia==0.6
 Pillow==9.3.0
 matplotlib==3.6.2
