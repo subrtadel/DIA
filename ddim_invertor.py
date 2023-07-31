@@ -253,8 +253,8 @@ class DDIMInvertor():
         progress = {'loss':[], 'indices':[]}
         progress['cond'] = []
     
-        # timestep_indices = torch.randint(low=0, high=self.config.n_iters, size=(self.config.conditioning_optimization.batch_size,1) ).view(-1)
-        # print(f'Selected timesteps: {timestep_indices}')
+        timestep_indices = torch.randperm(8).view(-1).long()
+        print(f'Selected timesteps: {timestep_indices}')
 
 
         pbar = tqdm(range(self.config.conditioning_optimization.opt_iters))
@@ -262,8 +262,8 @@ class DDIMInvertor():
 
             noise_ = torch.randn_like(target_latent)
 
-            # TODO: loss is not comparable...
-            timestep_indices = torch.randint(low=0, high=self.config.ddim_steps, size=(self.config.conditioning_optimization.batch_size,1) ).view(-1)
+            if not self.config.conditioning_optimization.fixed_timesteps:
+                timestep_indices = torch.randint(low=0, high=self.config.ddim_steps, size=(self.config.conditioning_optimization.batch_size,1) ).view(-1)
 
             noisy_samples = self.add_noise(target_latent, noise_, timestep_indices, ddim_use_original_steps=False)
 

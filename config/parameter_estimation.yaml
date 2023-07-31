@@ -4,17 +4,18 @@ ddim_eta: 0.
 noise_optimization:
   opt_iters: 10
   log_every: 1
-  lr: 1
+  lr: 0.1
   batch_size:  8
   uncond_guidance_scale: 1.
 
 conditioning_optimization:
-  opt_iters: 20
+  opt_iters: 10
   log_every: 1
   lr: 0.01
   N_tokens: 10
   batch_size:  8
   uncond_guidance_scale: 1.
+  fixed_timesteps: True # non-deterministic results
 
 uncond_guidance_scale: 1.
 path2save_prefix: './results/experiments/inversion/'
