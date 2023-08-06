@@ -89,6 +89,7 @@ class DDIMInvertor():
         if cond is None:
             with torch.no_grad():
                 cond_out = utils.load_estimated_cond(utils.extract_file_id_from_path(image), token_subfolder=self.config.token_subfolder)
+                assert cond_out is not None, 'Token inversion was not found...'
                 cond = self.__tokens2conditioning(cond_out)
         
         target_img = utils.load_pil(image)
