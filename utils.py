@@ -41,8 +41,8 @@ def load_model_from_config(config, ckpt, verbose=False, device='cuda'):
 
 
 def prepare_default_model(default_seed = 42):
-    default_config_path = "/home/subrtade/analogies/DiffusionImageAnalogies/stable-diffusion/configs/stable-diffusion/v1-inference.yaml"
-    default_ckpt_path = "/home/subrtade/analogies/DiffusionImageAnalogies/stable-diffusion/models/ldm/stable-diffusion-v1/model.ckpt"
+    default_config_path = "configs/stable-diffusion/v1-inference.yaml"
+    default_ckpt_path = "models/ldm/stable-diffusion-v1/model.ckpt"
 
     seed_everything(default_seed)
 
