@@ -80,7 +80,7 @@ for file_name in clean_file_lines:
         rec_img_pil = utils.torch2pil(rec_img_torch)[0]
         rec_img_pil.save(os.path.join(export_path, 'reconstruction.png'))
 
-
+    print(f'Saving results to {export_path}')
     utils.save_results2pickle(export_path, outputs)
 
 

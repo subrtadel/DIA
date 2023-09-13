@@ -5,7 +5,7 @@ noise_optimization:
   opt_iters: 10
   log_every: 1
   lr: 0.1
-  batch_size:  8
+  batch_size:  8 
   uncond_guidance_scale: 1.
 
 conditioning_optimization:
@@ -15,7 +15,7 @@ conditioning_optimization:
   N_tokens: 10
   batch_size:  8
   uncond_guidance_scale: 1.
-  fixed_timesteps: True # non-deterministic results
+  fixed_timesteps: True # non-deterministic results with False
 
 uncond_guidance_scale: 1.
 path2save_prefix: './results/experiments/inversion/'

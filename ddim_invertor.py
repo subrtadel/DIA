@@ -195,8 +195,11 @@ class DDIMInvertor():
         # # create batch
         hflipper = T.RandomHorizontalFlip(p=1)
         resize_cropper = T.RandomResizedCrop(size=(512, 512), scale = (0.85, 0.99),ratio=(1,1))
-        resized_crops = [resize_cropper(target_img) for _ in range(6)]
-        transformed_imgs = [target_img, hflipper(target_img), *resized_crops]
+        resized_crops = [resize_cropper(target_img) for _ in range(max(0, self.config.conditioning_optimization.batch_size - 2))]
+        if self.config.conditioning_optimization.batch_size == 1:
+            transformed_imgs = [target_img]
+        else:
+            transformed_imgs = [target_img, hflipper(target_img), *resized_crops]
 
         target_img = utils.pil2torch_batch(transformed_imgs)
         target_latent = utils.img2latent(self.ddim_sampler.model, target_img)
@@ -254,7 +257,7 @@ class DDIMInvertor():
         progress = {'loss':[], 'indices':[]}
         progress['cond'] = []
     
-        timestep_indices = torch.randperm(8).view(-1).long()
+        timestep_indices = torch.randperm(self.config.conditioning_optimization.batch_size).view(-1).long()
         print(f'Selected timesteps: {timestep_indices}')
 
 
@@ -270,6 +273,7 @@ class DDIMInvertor():
 
             steps_in = torch.index_select(timesteps, 0, timestep_indices).to(self.config.device)
             cond_init = fetch_cond_init(prompt_repre)
+
 
             noise_prediction = self.ddim_sampler.model.apply_model(noisy_samples, steps_in, cond_init.expand(self.config.conditioning_optimization.batch_size, -1 , -1))
 

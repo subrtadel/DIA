@@ -13,3 +13,6 @@ __pycache__/
 *.JPEG
 
 *.pdf
+
+
+estimate_input_noise_tmp_from_prompt.py

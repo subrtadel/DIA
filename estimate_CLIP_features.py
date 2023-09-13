@@ -5,7 +5,7 @@ import pickle as pkl
 import numpy as np 
 import sys
 import os
-sys.path.append('/home/subrtade/analogies/DiffusionImageAnalogies/stable-diffusion/')
+sys.path.append('./stable-diffusion/')
 
 from ddim_invertor import DDIMInvertor
 import utils
@@ -67,6 +67,7 @@ for file_path in clean_file_lines:
 
     export_path = os.path.join(config.path2save_prefix, file_id, args['subfolder'])
     
+    print(f'Saving results to {export_path}')
     utils.save_results2pickle(export_path, output)
     # os.makedirs(export_path, exist_ok=True)
 
